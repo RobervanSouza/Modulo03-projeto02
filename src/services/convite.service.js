@@ -1,54 +1,35 @@
+const Convites = require('../models/Convite'); // importa  o models
 
-
-const convites = [
-  {
-    id: 1,
-    nome: 'convite para casamento',
-    descricao: 'feito em papel offset',
-    marca: 'perola negra convites',
-  },
-  {
-    id: 2,
-    nome: 'convite 15 anos',
-    descricao: 'feito em papel offset',
-    marca: 'perola negra convites',
-  },
-  {
-    id: 3,
-    nome: 'convite aniversario 60 anos',
-    descricao: 'feito em papel offset',
-    marca: 'perola negra convites',
-  },
-];
-
-let indexNumber = convites.length +1;
-
-const findAllconvitesService = () => {
-  return convites;
+// todos os convites
+const findAllconvitesService = async () => {
+  const allconvites = await Convites.find();
+  return allconvites;
 };
 
-const findByIDconviteService = (parametroId) => {
-  return convites.find((convite) => convite.id === parametroId);
+// encontra o id do convite
+const findByIDconviteService = async (idParam) => {
+  const oneconvite = await Convites.findById(idParam);
+  return oneconvite;
 };
 
-const createConviteService = (newConvite) => {
-  
-  newConvite.id = indexNumber;
-  indexNumber++;
-  convites.push(newConvite);
-  return newConvite;
+// criar convite
+const createConviteService = async (newConvite) => {
+  const createconvite = await Convites.create(newConvite);
+  return createconvite;
 };
 
-const updateConviteService = (id, conviteEdite) => {
-  conviteEdite['id'] = id;
-  const conviteIndex = convites.findIndex((convite) => convite.id === id);
-  convites[conviteIndex] = conviteEdite;
-  return conviteEdite;
+// editar convites
+const updateConviteService = async (idParam, editedconvite) => {
+  const updateConvite = await Convites.findByIdAndUpdate(
+    idParam,
+    editedconvite,
+  ).setOptions({ returnOriginal: false });
+  return updateConvite;
 };
 
-const deleteConviteService = (id) => {
-  const conviteIndex = convites.findIndex((convite) => convite.id == id);
-  return convites.splice(conviteIndex, 1);
+// delete convite
+const deleteConviteService = async (idParam) => {
+  return await Convites.findByIdAndDelete(idParam);
 };
 
 module.exports = {
