@@ -1,0 +1,309 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": " Api convite",
+    "description": "Convite perola negra",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/convites",
+      "description": " Url teste"
+    }
+  ],
+  "paths": {
+    "/convites/": {
+      "get": {
+        "summary": "Lista todos os convites teste rota",
+        "description": "Rota responsavel por todos os convites",
+        "tags": ["convites"],
+        "responses": {
+          "404": {
+            "description": " Nenhum convite encontrado, verifique o id!!! teste"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/convite"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/convite/{id}": {
+      "get": {
+        "summary": "Busca id do convite",
+        "description": "rota esponsavel pelo id do convite",
+        "tags": ["convites"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id do convite",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad request. Please try again."
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/convite"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    " /create-convite": {
+      "post": {
+        "summary": "Cadastrar um convite",
+        "description": "Rota para cadastrar um convite",
+        "tags": ["convites"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/convite"
+              },
+              "examples": {
+                "convites": {
+                  "value": {
+                    "nome": "convite swagger",
+                    "descricao": "descricao",
+                    "marca": "perola negra",
+                    "quantidade": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "response": {
+          "400": {
+            "description": "Complete todos os campos"
+          },
+          "201": {
+            "description": "created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/convite"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/editar/{id}": {
+      "put": {
+        "summary": "Editar convite pelo ID",
+        "description": "Rota para editar os convites",
+        "tags": ["convites"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id do convite para buscar",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/convite"
+              },
+              "examples": {
+                "convites": {
+                  "value": {
+                    "nome": "convite para casamento",
+                    "description": "feito em papel offset",
+                    "marca": "perola negra convites",
+                    "quantidade": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad request. Please try again."
+          },
+          "200": {
+            "description": "OK.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/convite"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delete/{id}": {
+      "delete": {
+        "summary": "Delete o convie pela id",
+        "description": "rota esponsavel por deletar o convite",
+        "tags": ["convites"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id do convite para deletar",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "bad request"
+          },
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/todo-carrinho": {
+      "get": {
+        "summary": "Lista todos  convites no carrinho",
+        "description": "Rota responsavel por todos os convites no carrinho",
+        "tags": ["carrinho"],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/carrinho"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/create-carrinho": {
+      "post": {
+        "summary": "Cadastrar convite varios convites no carrinho",
+        "description": " Rota para cadastrar varios convite  no carrinho",
+        "tags": ["carrinho"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/carrinho"
+              },
+              "exemplo": {
+                "carrinho": {
+                  "value": [
+                    {
+                      "conviteId": "colocar id do convite",
+                      "quantidade ": 5
+                    },
+                    {
+                      "conviteId": "colocar id do convite",
+                      "quantidade ": 5
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "response": {
+          "400": {
+            "description": "bad request"
+          },
+          "201": {
+            "description": "criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/convites"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/termina-carrinho": {
+      "delete": {
+        "summary": "apaga os itens do carrinho",
+        "description": "Rota responsavel por todos os convites do carrinho",
+        "tags": ["carrinho"],
+        "responses": {
+          "400": {
+            "description": "bad request"
+          },
+          "200": {
+            "description": " ok"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "convite": {
+        "type": "object",
+        "properties": {
+          "Nome": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "marca": {
+            "type": "string"
+          },
+          "quantidade": {
+            "type": "Number"
+          }
+        }
+      },
+      "carrinho": {
+        "type": "object",
+        "properties": {
+          "conviteid": {
+            "type": "string"
+          },
+          "quantidade": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}

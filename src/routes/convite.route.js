@@ -5,9 +5,9 @@ const {
   validId,
   validObjectBody,
 } = require('../middlewares/convite.middleware');
-route.get('/all-convites', controllerconvites.findAllconvitesController);
+route.get('/teste', controllerconvites.findAllconvitesController);
 route.get(
-  '/one-convite/:id',
+  '/convite/:id',
   validId,
   controllerconvites.findByIDconviteController,
 );
@@ -17,13 +17,13 @@ route.post(
   controllerconvites.createConvitecontroller,
 );
 route.put(
-  '/update-convite/:id',
+  '/editar/:id',
   validId,
   validObjectBody,
   controllerconvites.updateConvitecontroller,
 );
 route.delete(
-  '/delete-convite/:id',
+  '/delete/:id',
   validId,
   controllerconvites.deleteConvitecontroller,
 );
