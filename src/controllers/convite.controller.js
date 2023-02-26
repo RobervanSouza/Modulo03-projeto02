@@ -55,7 +55,10 @@ const updateConvitecontroller = async (req, res) => {
 // deletar convite
 const deleteConvitecontroller = async (req, res) => {
   const idparam = req.params.id;
-  await convitesService.deleteConviteService(idparam);
+  const teste =  await convitesService.deleteConviteService(idparam);
+  if (!teste) {
+    return res.status(404).send({ message : 'id not found' });
+  }
   res.send({ message: 'convite deletado com sucesso!!!' });
 };
 
@@ -66,3 +69,5 @@ module.exports = {
   updateConvitecontroller,
   deleteConvitecontroller,
 };
+
+
